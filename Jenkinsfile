@@ -14,10 +14,6 @@ pipeline {
 	GIT_REPO_URL = 'https://github.com/OneStopDevOps/ci-cd-jenkins-pipeline.git'
   }
 
-  tools {
-	local-maven 'local_mvn'
-  }
-
   stages {
 
     stage('Stage 1 - Clone docker-jenkins-pipeline') {
