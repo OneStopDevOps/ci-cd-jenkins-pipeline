@@ -15,7 +15,7 @@ pipeline {
   }
 
   tools {
-	maven 'local_mvn'
+	local-maven 'local_mvn'
   }
 
   stages {
@@ -27,7 +27,7 @@ pipeline {
         sendStartNotification()
 
         echo "Checking out from github repo..."
-        git branch: 'master', url: ${GIT_REPO_URL}
+        git branch: 'master', url: "${GIT_REPO_URL}"
       }
     }
 
@@ -78,7 +78,9 @@ pipeline {
         }
       }*/
 
-      // 
+      steps {
+	echo "Deploying war to tomcat container."	
+      } 
     }
 
   }
