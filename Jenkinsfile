@@ -11,7 +11,10 @@ pipeline {
   agent any
 
   environment {
-	GIT_REPO_URL = 'https://github.com/OneStopDevOps/ci-cd-jenkins-pipeline.git'
+	GIT_REPO_URL      = 'https://github.com/OneStopDevOps/ci-cd-jenkins-pipeline.git'
+	JENKINS_WORKSPACE = 'Project3-CI-CD-Jenkins-Pipeline/inventory-service/target'
+	EC2_IP_ADDRESS    = 'ec2-54-183-206-136.us-west-1.compute.amazonaws.com'
+	EC2_USER          = 'ec2-user'
   }
 
   stages {
@@ -68,14 +71,20 @@ pipeline {
     stage('Stage 4 - Deploy to tomcat container on AWS EC2...') {
       
       // only execute this stage if the previous stages are successful.
-      /*when {
+      when {
         expression {
           currentBuild.result == null || currentBuild.result == 'SUCCESS'
         }
-      }*/
+      }
 
       steps {
-	echo "Deploying war to tomcat container."	
+	    echo "Deploying war to tomcat container."
+	    
+	    dir('inventory-service/target') {
+	        sshagent(['jenkins-ssh-ec2-user']) {
+				sh "scp inventory-service.war ${EC2_USER}@${EC2_IP_ADDRESS}:/home/${EC2_USER}/apache-tomcat-9.0.46/webapps"
+			}
+	    }
       } 
     }
 
