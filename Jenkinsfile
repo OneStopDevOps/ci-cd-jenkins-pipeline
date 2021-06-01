@@ -13,8 +13,6 @@ pipeline {
   environment {
 	GIT_REPO_URL      = 'https://github.com/OneStopDevOps/ci-cd-jenkins-pipeline.git'
 	JENKINS_WORKSPACE = 'Project3-CI-CD-Jenkins-Pipeline/inventory-service/target'
-	EC2_IP_ADDRESS    = 'ec2-54-183-206-136.us-west-1.compute.amazonaws.com'
-	EC2_USER          = 'ec2-user'
   }
 
   stages {
@@ -82,7 +80,7 @@ pipeline {
 	    
 	    dir('inventory-service/target') {
 	        sshagent(['jenkins-ssh-ec2-user']) {
-				sh "scp inventory-service.war ${EC2_USER}@${EC2_IP_ADDRESS}:/home/${EC2_USER}/apache-tomcat-9.0.46/webapps"
+				sh "scp inventory-service.war ${EC2_USER}@${EC2_ADDRESS}:/home/${EC2_USER}/apache-tomcat-9.0.46/webapps"
 			}
 	    }
       } 
