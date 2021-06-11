@@ -85,11 +85,11 @@ pipeline {
       steps {
 	    echo "Deploying war to tomcat container."
 	    
-	    /*dir('inventory-service/target') {
+	    dir('inventory-service/target') {
 	        sshagent(['jenkins-ssh-ec2-user']) {
 				sh "scp inventory-service.war ${EC2_USER}@${EC2_ADDRESS}:/home/${EC2_USER}/apache-tomcat-9.0.46/webapps"
 			}
-	    }*/
+	    }
       } 
     }
 
